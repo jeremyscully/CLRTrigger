@@ -19,9 +19,6 @@ using System.Web;
 
 public class CLRTriggers
 {
-    //private const string URL = "http://chelsqlgis014:8080/messages/kafka/get";
-    //private const string DATA = @"{""}";
-
 
     [SqlTrigger(Name = @"clr_Trg_RatePlanInventory_AftInsUpdDel_toKafka", Target = "[dbo].[RatePlanInventory]", Event = "FOR INSERT, UPDATE, DELETE")]
     public static void clr_Trg_RatePlanInventory_AftInsUpdDel_toKafka()
@@ -196,7 +193,7 @@ public class CLRTriggers
     {
         json = HttpUtility.UrlEncode(json);
 
-        Uri uri = new Uri(string.Format("http://chelsqlgis014:8080/messages/kafka/get?topic={0}&key={1}&message={2}", topic, key,json));
+        Uri uri = new Uri(string.Format("http://<SERVERNAME_IP>:8080/messages/kafka/get?topic={0}&key={1}&message={2}", topic, key,json));
 
         pipe.Send(uri.PathAndQuery);
         GetResponse(uri, (x) =>
